@@ -7,6 +7,7 @@ import { logo, menu, close } from "../assets";
 
 const Navbar = () => {
   const [active, setActive] = useState("");
+  const [toggle, setToggle] = useState(false);
 
   return (
     <nav
@@ -18,19 +19,35 @@ const Navbar = () => {
           className="flex items-center gap-2"
           onClick={() => {
             setActive("");
-            window.scrollTo(0,0);
+            window.scrollTo(0, 0);
           }}
         >
           <img src={logo} alt="logo" className="w-9 h-9 object-contain" />
-          <p className="text-white text-[18px] font-bold cursor-pointer">Faye <span className="sm:block hidden">| Web Developer</span></p>
+          <p className="text-white text-[18px] font-bold cursor-pointer">
+            Faye <span className="sm:block hidden">| Web Developer</span>
+          </p>
         </Link>
         <ul className="list-none hidden sm:flex flex-row gap-10">
-          {navLinks.map((link) => {
-            <li>
+          {navLinks.map((link) => (
+            <li
+              key={link.id}
+              className={`${
+                active === link.title ? "text-white" : "text-secondary"
+              } hover:text-white text-[18px] font-medium cursor-pointer`}
+            >
               <a href={`#${link.id}`}>{link.title}</a>
             </li>
-          })}
+          ))}
         </ul>
+
+        <div className="sm:hidden flex flex-1 justify-end items-center">
+          <img
+            src={menu}
+            alt="menu"
+            className="w-[28px] h-[28px] object-contain cursor-pointer"
+            onClick={() => setToggle(!toggle)}
+          />
+        </div>
       </div>
     </nav>
   );
